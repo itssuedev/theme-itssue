@@ -1,0 +1,607 @@
+/*
+Theme Name:  theme-itssue
+Theme URI:   http://www.itssue.co.kr
+Description: 잇슈 사이트 테마입니다. 누구나 따라하다보면 자기만의 테마가 완성 됩니다.
+Author:      itssue
+Author URI:  http://dab.itssue.co.kr
+Version:     0.1
+Tags:        테스트,간단,따라하기
+*/
+
+@import url('css/reset.css');
+
+/* 공통 영역 */
+.bg-fff { background-color: #fff; }
+.clear { clear: both; }
+
+body {
+  font-size: 15px;
+}
+
+header {
+  z-index: 9999;
+  padding: 25px 25px 0 25px;
+}
+
+.wrapper {
+  position: relative;
+  width: 1080px;
+  margin: 50px auto;
+  z-index: 7000;
+}
+
+.wrapper-inner {
+  padding: 0 25px;
+  overflow: auto;
+}
+
+.site-logo {
+  padding: 10px 0 30px;
+  float: left;
+  height: auto;
+  text-align: center;
+}
+
+.site-logo img {
+  max-width: 100%;
+  height: auto;
+}
+
+.site-branding {
+  float: left;
+  padding: 20px;
+}
+
+.header-right {
+  float: right;
+  font-size: 13px;
+  color: #000;
+  text-align: right;
+  margin-top: 20px;
+}
+
+.header-right a {
+  color: #000;
+  display: inline-block;
+  line-height: 180%;
+}
+
+.logo-extra {
+  float: right;
+  padding-left: 20px;
+}
+
+.main-bg {
+  width: 100%;
+  height: auto;
+  position: absolute;
+  z-index: 1000;
+  margin-top: -50px;
+}
+
+.main-content {
+  margin-top: 69px;
+  line-height: 150%;
+  margin-right: -270px;
+  float: left;
+  width: 100%;
+}
+
+.page-wrapper {
+  margin-right: 270px;
+}
+
+footer {
+  background-color: #a2a2a2;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 13px;
+  line-height: 150%;
+  text-align: center;
+}
+
+.footer-inner {
+  min-width: 100px;
+  min-height: 30px;
+}
+
+footer a {
+  color: #fff;
+}
+
+.footer-co-name {
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.screen-reader-text {
+  display: none;
+}
+
+/* 메뉴 공통 */
+#main-menu {
+  margin-left: -25px;
+}
+
+nav.normal, nav.mega {
+  position: absolute;
+  width: 100%;
+  margin-bottom: 20px;
+  z-index: 9999;
+}
+
+nav.normal a, nav.mega a {
+  font-weight: 600;
+  font-size: 13px;
+  z-index:9999;
+}
+
+nav ul.menu {
+  display: table;
+}
+
+nav ul.menu > li {
+  float: left;
+  line-height: 150%;
+  background-image: url('images/nav-minus.png');
+  background-repeat: no-repeat;
+  background-position: 5px 18px;
+  width: 80px;
+}
+
+nav ul.menu > li > ul.sub-menu {
+  display: none;
+  z-index: 9999;
+  margin-left: -20px;
+  padding-top: 2px;
+}
+
+nav ul.menu > li.menu-item-has-children {
+  background-image: url('images/nav-plus.png');
+}
+
+nav .sub-menu .sub-menu > li {
+  padding: 5px 10px 0px 20px;
+  background-image: url('images/nav-sub-sub.png');
+  background-repeat: no-repeat;
+  background-position: 5px 5px;
+}
+
+/* 일반 메뉴 */
+nav.normal {
+  border-top: 2px solid #296c96;
+  border-bottom: 2px solid #296c96;
+}
+
+nav.normal a {
+  color: #0062c3;
+}
+
+nav.normal ul.menu {
+  margin: 0 auto;
+}
+
+nav.normal ul.menu > li {
+  padding: 10px 20px 12px;
+}
+
+nav.normal ul.menu > li:hover {
+  background-image: url('images/nav-minus.png');
+}
+
+nav.normal ul.menu > li > ul.sub-menu {
+  position: absolute;
+  margin-top: 12px;
+}
+
+nav.normal ul.menu > li:hover ul.sub-menu {
+  display: block;
+}
+
+nav.normal ul.menu > li > ul.sub-menu > li {
+  padding: 10px 20px;
+  background-color: #fff;
+  border-left: 2px solid #296C96;
+  border-right: 1px dotted #296C96;
+  border-bottom: 1px dotted #296C96;
+}
+
+/* 메가 메뉴 */
+nav.mega {
+  background-color: #002765;
+  background-image: url('images/whale-shark.jpg');
+  background-repeat: no-repeat;
+  background-position: 100% 100%;
+}
+
+nav.mega a {
+  color: #fff;
+}
+
+nav.mega ul.menu {
+  margin-left: auto;
+  margin-right: auto;
+  overflow:hidden;
+}
+
+nav.mega ul.menu > li {
+  padding: 10px 15px 12px 20px;
+}
+
+nav.mega ul.menu > li > ul.sub-menu {
+  margin-top: 5px;
+}
+
+nav.mega:hover ul.sub-menu {
+  display: block;
+}
+
+nav .sub-menu .sub-menu > li:hover > a,
+nav ul li:hover > a {
+  color: #D001C9;
+}
+
+/* 본문 영역 */
+.page-inner {
+  width: 100%;
+  border-bottom: 2px dotted #e2e2e2;
+  margin-bottom: 20px;
+}
+
+.page-content {
+  font-size: 13px;
+  color: #504545;
+}
+
+h1.page-title {
+  font-size: 15px;
+}
+
+.pagination {
+  margin-bottom: 20px;
+  padding-top: 20px;
+  text-align: center;
+}
+
+.page-numbers {
+  padding: 5px 8px;
+  border: 1px solid #fff;
+}
+
+.pagination .next, .pagination .prev {
+  color: #23282d;
+  border: 1px solid #b2b2b2;
+}
+
+.pagination .current {
+  border: 1px solid #898989;
+  background-color: #898989;
+  color: #fff;
+}
+
+article.post {
+  border-bottom: 2px dotted #e2e2e2;
+  margin: 10px 0;
+  padding: 10px 0;
+  overflow: auto;
+}
+
+article.post h2 {
+  font-size: 25px;
+  margin-bottom: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+article.post .post-extra {
+  float: left;
+  width: 150px;
+}
+
+.page-footer {
+  background-color: #f0f0f0;
+  padding: 10px;
+  margin: 10px 0;
+  overflow: hidden;
+}
+
+.page-footer span {
+  margin: 0 10px;
+  float: right;
+}
+
+.post-link-prev, .comments-area .nav-previous {
+  float: left;
+}
+
+.post-link-next, .comments-area .nav-next {
+  float: right;
+}
+
+.comments-area {
+  clear: both;
+  margin: 20px 0;
+}
+
+.comments-area .children {
+  margin-left: 15px;
+}
+
+.comment-body {
+  padding: 8px 16px;
+  background-color: #ECECEC;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.07);
+}
+
+.comment-list li {
+  margin: 5px 0;
+  font-size: 14px;
+  line-height: 140%;
+}
+
+.comment-author.vcard {
+  padding-bottom: 10px;
+}
+
+.comment-author img {
+  background-color: #fff;
+  border: 1px solid #cfcfcf;
+}
+
+.comment-meta {
+  float: right;
+  font-size: 12px;
+  color: #703b3b;
+}
+
+.reply {
+  padding: 15px 0 5px;
+}
+
+.comment-reply-link, .comment-form  .submit {
+  font-size: 13px;
+  background-color: #b42323;
+  color: #fff;
+  padding: 5px 8px;
+  border: none;
+  border-radius: 3px;
+}
+
+.comment-reply-title {
+  margin: 25px 0 5px;
+  padding-top: 20px;
+  border-top: 2px dotted #e2e2e2;
+}
+
+.comment-form label {
+  float:left;
+  font-size: 12px;
+  line-height: 140%;
+  width: 70px;
+}
+
+.comment-form-comment #comment {
+  width: 99.5%;
+  margin-bottom: 10px;
+}
+
+.comment-notes {
+  margin: 0 0 5px;
+  font-size: 14px;
+  line-height: 140%;
+}
+
+.comment-form .required {
+  color: red;
+}
+
+.search-thumb {
+  float: left;
+  padding-right: 15px;
+}
+
+.search-result li {
+  clear: both;
+  margin: 15px 0;
+  border-bottom: 2px dotted #e2e2e2;
+  overflow: auto;
+}
+
+.search-result dt {
+  font-size: 16px;
+}
+
+/* 사이드바 */
+.main-sidebar {
+  float: right;
+  width: 250px;
+  padding: 0 0 30px 10px;
+  margin-top: 69px;
+  font-size: 13px;
+}
+
+.widget {
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #cfcfcf;
+  overflow: auto;
+}
+
+.widget ul {
+  margin-top: 5px;
+}
+
+.widget table {
+  width: 100%;
+}
+
+.widgettitle {
+  font-size: 14px;
+  background-color: #002765;
+  padding: 5px;
+  color: #fff;
+}
+
+.main-sidebar .searchform .screen-reader-text {
+  display: none;
+}
+
+.main-sidebar .searchform #s {
+  width: 180px;
+  float: left;
+  line-height: 170%;
+  height: 25px;
+  border: 1px solid #cfcfcf;
+}
+
+.main-sidebar .searchform  #searchsubmit {
+  float: right;
+  height: 29px;
+  width: 45px;
+  text-align: center;
+  border: 1px solid #cfcfcf;
+}
+
+/* 메인 페이지 */
+.blocks {
+  border: 1px solid #e2e2e2;
+  margin-bottom: 20px;
+  overflow: auto;
+}
+
+.blocks a {
+  color: #000;
+  display: block;
+}
+
+.blocks .link-page {
+  font-size: 16px;
+}
+
+.one-second, .one-third, .two-third {
+  float: left;
+  border-right: 1px solid #e2e2e2;
+  box-sizing: border-box;
+}
+
+.one-second {
+  width: 50%;
+}
+
+.one-third {
+  width: 33.33333%;
+}
+
+.two-third {
+  width: 66.66666%;
+}
+
+.block-page, .block-none {
+  min-height: 220px;
+}
+
+.block-cat {
+  min-height: 180px;
+}
+
+.block-page {
+  display: table;
+  text-align: center;
+  vertical-align: middle;
+  width: 100%;
+}
+
+.block-page img {
+  margin: 50px 0 50px 25px;
+  width: 115px;
+  height: 115px;
+}
+
+.block-page div {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  padding: 20px;
+}
+
+.block-cat {
+  text-align: left;
+  font-size: 13px;
+  padding: 20px;
+}
+
+.one-third:nth-child(3n+3) {
+  border-right: 0px;
+}
+
+.one-third:nth-child(2n+2) {
+  background-color: #eeeeee;
+}
+
+.one-second:nth-child(4n+2), .one-second:nth-child(4n+3) {
+  background-color: #eeeeee;
+}
+
+.one-second:nth-child(2n+2) {
+  border-right: 0px;
+}
+
+.block-fbw {
+  background-color: #fff !important;
+  padding: 20px;
+  border-right: 0px;
+}
+
+.page-excerpt {
+  padding-top: 11px;
+  clear: both;
+  font-size: 13px;
+  line-height: 150%;
+}
+
+.cat-title {
+  font-size: 18px;
+  padding-top: 0px;
+  float: left;
+}
+
+.cat-more {
+  font-weight: 600;
+  font-size: 18px;
+  float: right;
+  color: #000;
+}
+
+.block-cat .post-title {
+  float: left;
+  color: #000;
+  width: 180px;
+  padding-left: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background-image: url('./images/post-knob.png');
+  background-repeat: no-repeat;
+  background-position: 0 50%;
+}
+
+.block-cat .post-date {
+  float: right;
+}
+
+.error-title, .error-desc {
+  width: 100%;
+  text-align: center;
+  line-height: 1;
+}
+
+.error-title {
+  font-size: 72px;
+}
+
+.error-desc {
+  font-size: 36px;
+}
