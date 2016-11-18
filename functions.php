@@ -5,6 +5,8 @@
  * @package theme-itssue
  */
 
+require_once( 'inc/it-customize.php' );
+
 // 메뉴 등록
 register_nav_menu( 'primary', '메인 메뉴' );
 
@@ -41,6 +43,9 @@ $args = array(
   'height' => 148,
   'default-text-color' => '551a8e',
   'header-text' => true,
+  'wp-head-callback' => 'it_custom_header_style',
+  'admin-head-callback' => 'it_custom_header_admin_style',
+  'admin_preview-callback' => 'it_custom_header_admin_preview',
 );
 add_theme_support( 'custom-header', $args );
 

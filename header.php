@@ -29,10 +29,7 @@ $it_base = get_template_directory_uri();
     <header>
       <div class="site-logo">
         <!-- 로고 이미지 -->
-        <a href="<?php bloginfo( 'url' ); ?>" title="HOME">
-          <img src="<?php echo $it_base; ?>/images/logo.png"
-            alt="로고 이미지" />
-        </a>
+        <?php the_custom_logo(); ?>
         <!-- /로고 이미지 -->
       </div><!-- .site-logo -->
       <div class="site-branding">
