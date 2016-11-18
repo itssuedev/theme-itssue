@@ -26,3 +26,36 @@ function it_enqueue_comment_reply() {
   }
 }
 add_action(  'wp_enqueue_scripts', 'it_enqueue_comment_reply' );
+
+// 사용자 정의 로고
+$args = array(
+  'width' => 290,
+  'height' => 81,
+  'header-text' => 'test-cls'
+);
+add_theme_support( 'custom-logo', $args );
+
+// 사용자 정의 헤더
+$args = array(
+  'width' => 1080,
+  'height' => 148,
+  'default-text-color' => '551a8e',
+  'header-text' => true,
+);
+add_theme_support( 'custom-header', $args );
+
+// 사용자 정의 배경 이미지
+$args = array(
+  'default-image' => get_template_directory_uri()
+    . '/images/main-bg.jpg',
+  'default-repeat'  => 'no-repleat',
+  'default-position-x'  => 'center',
+  'default-color' => '010a29',
+);
+add_theme_support( 'custom-background', $args );
+
+// 타이틀 태그
+add_theme_support( 'title-tag' );
+
+// 특성 이미지
+add_theme_support( 'post-thumbnails' );

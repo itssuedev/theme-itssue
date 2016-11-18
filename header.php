@@ -11,10 +11,6 @@ $it_base = get_template_directory_uri();
 <html <?php language_attributes(); ?>>
 <head>
   <meta charset="<?php bloginfo( 'charset' ); ?>">
-  <!-- 웹사이트 타이틀 -->
-  <title><?php bloginfo( 'name' ); ?><?php wp_title(); ?></title>
-  <!-- /웹사이트 타이틀 -->
-
   <!-- head 태그에서 할 일 -->
   <?php
   wp_enqueue_style( 'style-css', $it_base. '/style.css' );

@@ -6,6 +6,12 @@
  */
 ?>
 <li>
+  <?php if ( has_post_thumbnail() ) { ?>
+    <div class="search-thumb">
+      <?php the_post_thumbnail( array( 70, 70 ) ); ?>
+    </div>
+  <?php } ?>
+
   <dl>
     <dt>
       <?php
