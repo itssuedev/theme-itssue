@@ -45,7 +45,7 @@ $args = array(
   'header-text' => true,
   'wp-head-callback' => 'it_custom_header_style',
   'admin-head-callback' => 'it_custom_header_admin_style',
-  'admin_preview-callback' => 'it_custom_header_admin_preview',
+  'admin-preview-callback' => 'it_custom_header_admin_preview',
 );
 add_theme_support( 'custom-header', $args );
 

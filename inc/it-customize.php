@@ -101,4 +101,47 @@ function it_custom_header_admin_style() {
 <?php
 }
 
-// 헤더 이미지 & 헤더 글 색상 html (JS 미지원)
+// 헤더 이미지 & 헤더 글 색상 html
+function it_print_header() {
+?>
+  <div class="site-logo">
+    <!-- 로고 이미지 -->
+    <?php the_custom_logo(); ?>
+    <!-- /로고 이미지 -->
+  </div><!-- .site-logo -->
+
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="<?php bloginfo( 'url' ); ?>" title="HOME">
+        <?php bloginfo( 'name' ); ?>
+      </a>
+    </h1>
+    <p class="site-description">
+      <?php bloginfo( 'description' ); ?>
+    </p>
+  </div>
+  <!-- 추가 로고 이미지 -->
+  <img src=
+    "<?php echo get_template_directory_uri(); ?>/images/logo-extra.png"
+    alt="추가 로고 이미지" class="logo-extra" />
+  <!-- /추가 로고 이미지 -->
+
+  <div class="header-right">
+    <!-- 사이트 연락처 -->
+    dev@itssue.co.kr
+    <!-- /사이트 연락처 -->
+  </div><!-- .header-right -->
+
+  <div class="clear"></div>
+<?php
+}
+add_action( 'it_print_header', 'it_print_header' );
+
+// 알림판 영역 헤더 미리보기 (JS 미지원)
+function it_custom_header_admin_preview() {
+?>
+  <div id="it-custom-header">
+  <?php do_action( 'it_print_header' ); ?>
+  </div>
+<?php
+}

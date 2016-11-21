@@ -27,34 +27,7 @@ $it_base = get_template_directory_uri();
 
   <div class="wrapper bg-fff">
     <header>
-      <div class="site-logo">
-        <!-- 로고 이미지 -->
-        <?php the_custom_logo(); ?>
-        <!-- /로고 이미지 -->
-      </div><!-- .site-logo -->
-      <div class="site-branding">
-        <h1 class="site-title">
-          <a href="<?php bloginfo( 'url' ); ?>" title="HOME">
-            <?php bloginfo( 'name' ); ?>
-          </a>
-        </h1>
-        <p class="site-description">
-          <?php bloginfo( 'description' ); ?>
-        </p>
-      </div>
-
-      <!-- 추가 로고 이미지 -->
-      <img src="<?php echo $it_base; ?>/images/logo-extra.png"
-        alt="추가 로고 이미지" class="logo-extra" />
-      <!-- /추가 로고 이미지 -->
-
-      <div class="header-right">
-        <!-- 사이트 연락처 -->
-       dev@itssue.co.kr
-        <!-- /사이트 연락처 -->
-      </div><!-- .header-right -->
-
-      <div class="clear"></div>
+      <?php do_action( 'it_print_header' ); ?>
 
       <!-- 메뉴 영역 -->
       <div id="main-menu">
