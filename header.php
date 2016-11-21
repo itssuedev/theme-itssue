@@ -13,6 +13,8 @@ $it_base = get_template_directory_uri();
   <meta charset="<?php bloginfo( 'charset' ); ?>">
   <!-- head 태그에서 할 일 -->
   <?php
+  wp_enqueue_script( 'common-js', $it_base. '/js/common.js',
+    array( 'jquery' ) );
   wp_enqueue_style( 'style-css', $it_base. '/style.css' );
   ?>
   <!-- /head 태그에서 할 일 -->

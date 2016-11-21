@@ -124,9 +124,11 @@ function it_print_header() {
   </div>
   <!-- 추가 로고 이미지 -->
   <?php if ( $extra_logo = get_theme_mod( 'header_extra_logo' ) ) : ?>
-    <img src=
-      "<?php echo wp_get_attachment_image_url( $extra_logo ); ?>"
-      alt="추가 로고 이미지" class="logo-extra" />
+    <?php
+    echo wp_get_attachment_image( $extra_logo, 'thumbnail', false,
+      array( 'class' => 'logo-extra', 'alt' => '추가 로고 이미지',
+    ) );
+    ?>
   <?php endif; ?>
   <!-- /추가 로고 이미지 -->
 
