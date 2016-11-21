@@ -224,6 +224,7 @@ function it_theme_customize_register( $wp_customize ) {
   $wp_customize->add_setting( 'header_contact', array(
     'default' => '연락처를 설정하세요.',
     'sanitize_callback' => 'sanitize_email',
+    'transport' => 'postMessage',
   ) );
   $wp_customize->add_control(
     new WP_Customize_Control( $wp_customize, 'header_contact', array(
@@ -238,6 +239,7 @@ function it_theme_customize_register( $wp_customize ) {
   // 헤더영역 > 사이트 연락처 보이기 control
   $wp_customize->add_setting( 'header_contact_show', array(
     'default' => true,
+    'transport' => 'postMessage',
   ) );
   $wp_customize->add_control(
     new WP_Customize_Control( $wp_customize, 'header_contact_show',
@@ -260,6 +262,7 @@ function it_theme_customize_register( $wp_customize ) {
   ) );
   $wp_customize->add_setting( 'it_customize_menu_type', array(
     'default' => 'normal',
+    'transport' => 'postMessage',
   ) );
   $wp_customize->add_control(
     new WP_Customize_Control( $wp_customize, 'it_customize_menu_type',
@@ -276,6 +279,7 @@ function it_theme_customize_register( $wp_customize ) {
   // 푸터영역 > 푸터 텍스트 control
   $wp_customize->add_setting( 'footer_text', array(
     'default' => '',
+    'transport' => 'postMessage',
   ) );
   $wp_customize->add_control(
     new WP_Customize_Control( $wp_customize, 'footer_text', array(
@@ -292,6 +296,7 @@ function it_theme_customize_register( $wp_customize ) {
   // 푸터영역 > 푸터 배경 색 control
   $wp_customize->add_setting( 'footer_background_color', array(
     'default' => '#a2a2a2',
+    'transport' => 'postMessage',
   ) );
   $wp_customize->add_control(
     new WP_Customize_Color_Control( $wp_customize, 'footer_bg_color',
@@ -319,6 +324,65 @@ function it_theme_customize_register( $wp_customize ) {
         ),
     ) )
   );
+
+  // WP 기본 setting -> postMessage
+  $wp_customize->get_setting( 'header_textcolor' )->transport
+                = 'postMessage';
+
+  // 부분 갱신 영역
+  $wp_customize->get_setting( 'blogname' )->transport
+                = 'postMessage';
+  $wp_customize->get_setting( 'blogdescription' )->transport
+                = 'postMessage';
+  $wp_customize->selective_refresh->add_partial( 'blogname',
+    array(
+      'selector' => '.site-title a',
+      'render_callback'
+        => function() { return get_bloginfo( 'name' ); },
+    )
+  );
+  $wp_customize->selective_refresh->add_partial( 'blogdescription',
+    array(
+      'selector' => 'p.site-description',
+      'render_callback'
+        => function() { return get_bloginfo( 'description' ); },
+    )
+  );
+  $wp_customize->selective_refresh->add_partial( 'header_contact',
+    array(
+      'selector' => '.site-contact',
+      'render_callback' => function() {
+        return get_theme_mod( 'header_contact', '연락처를 설정하세요.' );
+      },
+    )
+  );
+  $wp_customize->selective_refresh->add_partial( 'footer_text',
+    array(
+      'selector' => 'div.footer-inner',
+      'render_callback'
+        => function() { return get_theme_mod( 'footer_text' ); }
+    )
+  );
+
+  // 네이버 사이트 등록
+  $wp_customize->add_section( 'it_customize_naver_reg', array(
+    'title' => '네이버 사이트 등록',
+    'description' => '네이버에 사이트를 등록하기 위한 정보를 입력합니다.',
+    'panel' => 'it_customize_global',
+    'priority' => 200,
+  ) );
+  $wp_customize->add_setting( 'it_customize_naver_meta', array(
+    'transport' => 'postMessage',
+  ) );
+  $wp_customize->add_control(
+    new WP_Customize_Control( $wp_customize, 'it_customize_naver_meta',
+      array(
+        'label' => '소유 확인 코드',
+        'description' => '네이버 웹마스터도구에서 제공한 소유 확인 코드를 입력해 주세요.',
+        'type' => 'text',
+        'section' => 'it_customize_naver_reg',
+    ) )
+  );
 }
 add_action( 'customize_register', 'it_theme_customize_register' );
 
@@ -341,3 +405,22 @@ function it_customize_style() {
 <?php
 }
 add_action( 'wp_head', 'it_customize_style' );
+
+// 사용자 정의하기 스크립트 enqueue
+function it_enqueue_customizer_js() {
+  wp_enqueue_script( 'it-customizer-js'
+    , get_template_directory_uri(). '/js/customizer.js'
+    , array( 'jquery', 'customize-preview' )
+  );
+}
+add_action( 'customize_preview_init', 'it_enqueue_customizer_js' );
+
+// 네이버 소유 확인 코드
+function it_naver_meta() {
+  if ( $code = get_theme_mod( 'it_customize_naver_meta' ) ) {
+    printf( '<meta name="naver-site-verification" content="%s" />',
+      $code
+    );
+  }
+}
+add_action( 'wp_head', 'it_naver_meta' );
