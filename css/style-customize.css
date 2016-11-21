@@ -1,0 +1,9 @@
+/* customizer */
+.customize-section-description table.it-customize-table {
+  width: 100%;
+  text-align: center;
+}
+
+.it-customize-table td {
+  border: 1px solid black;
+}

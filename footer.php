@@ -7,7 +7,7 @@
 ?>
       </div><!-- .main-content -->
       <!-- 사이드바 -->
-      <?php get_sidebar(); ?>
+      <?php if ( !is_front_page() ) get_sidebar(); ?>
       <!-- /사이드바 -->
 
     </div><!-- .wrapper-inner -->

@@ -5,6 +5,8 @@
  * @package theme-itssue
  */
 
+require_once( 'class-it-customize-control.php' );
+
 // 헤더 이미지 & 헤더 글 색상 스타일
 function it_custom_header_style() {
   if ( !current_theme_supports( 'custom-header' ) )
@@ -383,6 +385,130 @@ function it_theme_customize_register( $wp_customize ) {
         'section' => 'it_customize_naver_reg',
     ) )
   );
+
+  // 프론트 페이지 section
+  $desc = '
+  아래 레이아웃을 참조하여 각 항목을 설정하세요.<br />
+  <table class="it-customize-table">
+    <tr>
+      <td colspan="3" class="center">슬라이더</td>
+    </tr>
+    <tr>
+      <td>영역1</td>
+      <td>영역2</td>
+      <td>영역3</td>
+    </tr>
+    <tr>
+      <td>영역4</td>
+      <td>영역5</td>
+      <td rowspan="2">SNS</td>
+    </tr>
+    <tr>
+      <td>영역6</td>
+      <td>영역7</td>
+    </tr>
+  </table>
+  ';
+  $wp_customize->add_section( 'it_customize_front_page', array(
+    'title' => '프론트 페이지',
+    'description' => $desc,
+    'active_callback' => 'is_front_page',
+  ) );
+
+  // 슬라이더
+  $wp_customize->add_setting( 'it_customize_front_slider', array(
+    'default' => '',
+  ) );
+  $wp_customize->add_control(
+    new IT_Customize_Control( $wp_customize,
+      'it_customize_front_slider', array(
+        'label' => '슬라이더 숏코드',
+        'description' => '이미지 슬라이더 출력을 위한 숏코드를 입력합니다.',
+        'section' => 'it_customize_front_page',
+      )
+    )
+  );
+
+  // 영역 1 ~ 7
+  for( $i = 1; $i <= 7; $i++ ) {
+    $prefix_setting = 'it_customize_front_area_'. $i. '_';
+    $wp_customize->add_setting( $prefix_setting. 'type', array(
+      'default' => 'page',
+    ) );
+    $wp_customize->add_control(
+      new IT_Customize_Control( $wp_customize, $prefix_setting. 'type',
+        array(
+          'label' => '영역 '. $i,
+          'description' => '콘텐트 유형',
+          'section' => 'it_customize_front_page',
+          'type' => 'radio',
+          'choices' => array( 'page' => '페이지', 'category' => '카테고리' ),
+        )
+      )
+    );
+
+    $wp_customize->add_setting( $prefix_setting. 'page', array(
+      'default' => '',
+      'transport' => 'postMessage',
+    ) );
+    $wp_customize->add_control(
+      new IT_Customize_Control( $wp_customize, $prefix_setting. 'page',
+        array(
+          'description' => '페이지를 선택하세요.',
+          'section' => 'it_customize_front_page',
+          'type' => 'dropdown-pages',
+          'active_callback' => function() use( $prefix_setting ) {
+            return 'page' == get_theme_mod( $prefix_setting. 'type' );
+          },
+        )
+      )
+    );
+
+    $wp_customize->add_setting( $prefix_setting. 'category', array(
+      'default' => '',
+      'transport' => 'postMessage',
+    ) );
+    $wp_customize->add_control(
+      new IT_Customize_Control( $wp_customize,
+        $prefix_setting. 'category', array(
+          'description' => '카테고리를 선택하세요.',
+          'section' => 'it_customize_front_page',
+          'type' => 'dropdown-categories',
+          'active_callback' => function() use( $prefix_setting ) {
+            return 'category' == get_theme_mod( $prefix_setting. 'type' );
+          },
+        )
+      )
+    );
+
+    $wp_customize->selective_refresh->add_partial( $prefix_setting,
+      array(
+        'selector' => '#front-block-'. $i,
+        'settings' => array(
+          $prefix_setting. 'type',
+          $prefix_setting. 'page',
+          $prefix_setting. 'category'
+        ),
+        'render_callback' => function() use( $i ) {
+          return it_front_block( $i );
+        },
+      )
+    );
+  }
+
+  // SNS
+  $wp_customize->add_setting( 'it_customize_front_sns', array(
+    'default' => '',
+  ) );
+  $wp_customize->add_control(
+    new IT_Customize_Control( $wp_customize, 'it_customize_front_sns',
+      array(
+        'label' => 'SNS 숏코드',
+        'description' => 'SNS 타임라인을 출력을 위한 숏코드를 입력합니다.',
+        'section' => 'it_customize_front_page',
+      )
+    )
+  );
 }
 add_action( 'customize_register', 'it_theme_customize_register' );
 
@@ -424,3 +550,41 @@ function it_naver_meta() {
   }
 }
 add_action( 'wp_head', 'it_naver_meta' );
+
+// 사용자 정의 설정 영역 스타일 enqueue
+function it_enqueue_customizer_control_style() {
+  wp_enqueue_style( 'it-customizer-css',
+    get_template_directory_uri(). '/css/style-customize.css' );
+}
+add_action( 'customize_controls_enqueue_scripts',
+  'it_enqueue_customizer_control_style' );
+
+// 메인 페이지 블럭
+function it_front_block( $area ) {
+  $prefix_setting = 'it_customize_front_area_'. $area. '_';
+  $type = get_theme_mod( $prefix_setting. 'type' );
+  $query_id = get_theme_mod( $prefix_setting. $type );
+
+  ob_start();
+
+  if ( !$type || !$query_id ) {
+    get_template_part( 'tmpl-front', 'none' );
+  } else {
+    $args = array();
+    if ( 'category' == $type ) {
+      $args = array(
+        'cat' => $query_id,
+      );
+    } else {
+      $args = array(
+        'page_id' => $query_id,
+      );
+    }
+
+    query_posts( $args );
+    get_template_part( 'tmpl-front', $type );
+    wp_reset_query();
+  }
+
+  return ob_get_clean();
+}
