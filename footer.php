@@ -14,15 +14,7 @@
 
     <footer>
       <div class="footer-inner">
-        <h4 class="footer-co-name">사이트명을 넣어주세요.</h4>
-
-        <a href="#" title="오시는 길">
-          <address>주소를 넣어주세요.</address>
-        </a>
-
-        <div class="footer-copyright">
-          Copyright을 넣어주세요.
-        </div><!-- .footer-copyright -->
+       <?php echo get_theme_mod( 'footer_text' ); ?>
       </div><!-- .footer-inner -->
     </footer>
   </div><!-- .wrapper -->

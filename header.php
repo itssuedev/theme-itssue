@@ -35,7 +35,8 @@ $it_base = get_template_directory_uri();
         wp_nav_menu( array(
           'theme_location'  => 'primary',
           'container'       => 'nav',
-          'container_class' => 'normal',
+          'container_class' =>
+            get_theme_mod( 'it_customize_menu_type', 'normal' ),
         ) );
         ?>
       </div><!-- #main-menu -->
